@@ -1,0 +1,184 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML, CSS, JS Examples</title>
+<style>
+    
+       h1 {
+           color: #3498db;
+       }
+       p {
+           font-size: 18px;
+       }
+       button {
+           background-color: #2ecc71;
+           padding: 10px 20px;
+           border: none;
+           color: white;
+           cursor: pointer;
+       }
+       /* Styles for Problem 3: Basic Form */
+       form {
+           margin: 20px;
+           padding: 20px;
+           border: 1px solid #ccc;
+       }
+       input[type="text"], input[type="email"] {
+           display: block;
+           margin: 10px 0;
+           padding: 10px;
+           width: 100%;
+           box-sizing: border-box;
+       }
+       input[type="submit"] {
+           background-color: #e74c3c;
+           color: white;
+           padding: 10px 20px;
+           border: none;
+           cursor: pointer;
+       }
+       /* Styles for Problem 4: Show/Hide Content with JavaScript */
+       #hiddenText {
+           display: none;
+           margin-top: 20px;
+           padding: 10px;
+           background-color: #f1c40f;
+           border-radius: 5px;
+       }
+       /* Styles for Problem 5: Simple Calculator */
+       .calculator {
+           width: 200px;
+           margin: 20px auto;
+           padding: 10px;
+           border: 1px solid #ccc;
+           border-radius: 5px;
+           text-align: center;
+       }
+       .calculator input[type="text"] {
+           width: 100%;
+           padding: 10px;
+           margin-bottom: 10px;
+           text-align: right;
+       }
+       .calculator button {
+           width: 45px;
+           padding: 10px;
+           margin: 5px;
+           cursor: pointer;
+       }
+</style>
+</head>
+<body>
+<!-- Problem 1: Create a Simple Web Page -->
+<h1>Welcome to My Web Page</h1>
+<p>This is a paragraph of text on my web page.</p>
+<a href="https://www.example.com" target="_blank">Visit Example.com</a>
+<!-- Problem 2: Style a Web Page with CSS -->
+<h1>Styled Heading</h1>
+<p>This paragraph has a specific font size.</p>
+<button>Click Me</button>
+<!-- Problem 3: Create a Basic Form -->
+<form>
+<label for="firstName">First Name:</label>
+<input type="text" id="firstName" name="firstName">
+<label for="lastName">Last Name:</label>
+<input type="text" id="lastName" name="lastName">
+<label for="email">Email:</label>
+<input type="email" id="email" name="email">
+<input type="submit" value="Submit">
+</form>
+<!-- Problem 4: Show/Hide Content with JavaScript -->
+<button onclick="toggleText()">Show/Hide Text</button>
+<div id="hiddenText">This is the text that can be toggled.</div>
+<!-- Problem 5: Build a Simple Calculator -->
+<div class="calculator">
+<input type="text" id="calcDisplay" disabled>
+<br>
+<button onclick="appendNumber(7)">7</button>
+<button onclick="appendNumber(8)">8</button>
+<button onclick="appendNumber(9)">9</button>
+<button onclick="setOperation('+')">+</button>
+<br>
+<button onclick="appendNumber(4)">4</button>
+<button onclick="appendNumber(5)">5</button>
+<button onclick="appendNumber(6)">6</button>
+<button onclick="setOperation('-')">-</button>
+<br>
+<button onclick="appendNumber(1)">1</button>
+<button onclick="appendNumber(2)">2</button>
+<button onclick="appendNumber(3)">3</button>
+<button onclick="setOperation('*')">*</button>
+<br>
+<button onclick="appendNumber(0)">0</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="calculateResult()">=</button>
+<button onclick="setOperation('/')">/</button>
+</div>
+<script>
+       // JavaScript for Problem 4: Show/Hide Content with JavaScript
+       function toggleText() {
+           const text = document.getElementById('hiddenText');
+           if (text.style.display === 'none') {
+               text.style.display = 'block';
+           } else {
+               text.style.display = 'none';
+           }
+       }
+       // JavaScript for Problem 5: Simple Calculator
+       let currentInput = '';
+       let currentOperation = '';
+       let storedValue = '';
+       function appendNumber(number) {
+           currentInput += number;
+           updateDisplay(currentInput);
+       }
+       function setOperation(operation) {
+           if (currentInput === '') return;
+           if (storedValue !== '') {
+               calculateResult();
+           }
+           currentOperation = operation;
+           storedValue = currentInput;
+           currentInput = '';
+       }
+       function clearDisplay() {
+           currentInput = '';
+           storedValue = '';
+           currentOperation = '';
+           updateDisplay('');
+       }
+       function calculateResult() {
+           if (currentInput === '' || currentOperation === '' || storedValue === '') return;
+           let result;
+           const firstValue = parseFloat(storedValue);
+           const secondValue = parseFloat(currentInput);
+           switch (currentOperation) {
+               case '+':
+                   result = firstValue + secondValue;
+                   break;
+               case '-':
+                   result = firstValue - secondValue;
+                   break;
+               case '*':
+                   result = firstValue * secondValue;
+                   break;
+               case '/':
+                   result = firstValue / secondValue;
+                   break;
+               default:
+                   return;
+           }
+           updateDisplay(result);
+           currentInput = result.toString();
+           currentOperation = '';
+           storedValue = '';
+       }
+       function updateDisplay(value) {
+           document.getElementById('calcDisplay').value = value;
+       }
+</script>
+</body>
+</html>
